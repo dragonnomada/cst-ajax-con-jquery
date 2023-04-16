@@ -1,0 +1,65 @@
+<div style="display: flex; justify-content: space-between;">
+    <button>Cargar imágenes</button>
+
+    <div id="leyenda" hidden>🐙 Esperando...</div>
+</div>
+
+<br>
+
+<div id="galeria"></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    // Función asíncrona:
+    // Es capaz de ser esperada hasta que termine
+    // Y es capaz de esperar a otras funciones (o promesas) hasta que terminen
+    // async -> soy asíncrono (tienes que esperar mis resultados)
+    // await -> esperalo (tienes que esperar los resultados de otro)
+    async function randomPicture() {
+        // VERSIÓN ASÍNCRONA DE AJAX
+        // await ajax(url, options)
+
+        const data = await $.ajax("https://randomuser.me/api?results=1")
+
+        // El resultado que se quedó esperando alguién más
+        return data.results[0].picture.large
+    }
+
+    async function descargarLoteImagenes(total) {
+        const pictures = []
+
+        for (let i = 0; i < total; i++) {
+            const picture = await randomPicture()
+            pictures.push(picture)
+        }
+
+        return pictures
+    }
+
+    $("button").click(async function () {
+        $("#leyenda").show()
+        
+        const pictures = await descargarLoteImagenes(10)
+        
+        $("#leyenda").hide()
+
+        pictures.forEach(function (picture) {
+            $("<img>").attr("src", picture).appendTo("#galeria")
+        })
+    })
+
+    // $("button").click(function () {
+    //     $("#leyenda").show()
+        
+    //     descargarLoteImagenes(10).then(function (pictures) {
+    //         $("#leyenda").hide()
+
+    //         pictures.forEach(function (picture) {
+    //             $("<img>").attr("src", picture).appendTo("#galeria")
+    //         })
+    //     })
+    // })
+
+</script>

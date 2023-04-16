@@ -1,0 +1,43 @@
+<style>
+    .todo-seleccionar-producto {
+        background-color: white;
+        height: 100%;
+        padding: 4em;
+    }
+
+    .tienda-buscar {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .tienda-caja-buscar {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding-right: 1em;
+    }
+
+    #tienda-productos-list {
+        padding: 3em;
+    }
+</style>
+
+<div class="todo-seleccionar-producto">
+
+    <div class="title">
+        <h2>Buscar y Seleccionar Productos</h2>
+    </div>
+
+    <div class="tienda-buscar">
+        <div class="tienda-caja-buscar">
+            <label for="tienda-producto-search">Buscar producto</label>
+            <input id="tienda-producto-search" type="search" placeholder="Buscar por código de barras o nombre del producto">
+        </div>
+        <div class="tienda-boton-buscar">
+            <button id="tienda-search-button">Buscar 🔎</button>
+        </div>
+    </div>
+
+    <div id="tienda-productos-list" class="tienda-list"></div>
+
+</div>

@@ -1,0 +1,76 @@
+<style>
+    .todo-form {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        max-width: 400px;
+    }
+
+    .todo-input {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+</style>
+
+<div class="todo-form">
+    <div class="todo-input">
+        <label>Escribe algo por hacer:</label>
+        <input id="todo-input-control" placeholder="Ej. Comprar leche">
+    </div>
+    <button id="todo-add">Agregar</button>
+</div>
+
+<div id="todos"></div>
+
+<script src="vendor/jquery-3.6.4.min.js"></script>
+
+<script>
+
+    function updateTodos(todos) {
+        $("#todos").html("")
+        for (let todo of todos) {
+            $("<div>").html(`
+                <span>[${todo.id}]</span>
+                <span>${todo.titulo}</span>
+                <span>${todo.creado}</span>
+                <span>${todo.actualizado}</span>
+            `).addClass(todo.completado ? 'completado' : 'no-completado')
+            .appendTo("#todos")
+        }
+    }
+
+    $(document).ready(async function () {
+        const todos = await $.ajax("getTodos.php")
+
+        console.log(todos)
+
+        updateTodos(todos)
+    })
+
+    $("#todo-add").click(async function () {
+        // alert("Creando nuevo Todo...")
+
+        // 1. Recuperar el título
+        const titulo = $("#todo-input-control").val()
+        
+        // 2. Enviar la petición ajax a createTodo.php
+        const formData = new FormData()
+
+        formData.append("titulo", titulo)
+        
+        const todos = await $.ajax("createTodo.php", {
+            method: "post",
+            data: formData,
+            processData: false,
+            contentType: false,
+            // cache : false,
+        })
+
+        // 3. Actualizar los Todos
+        console.log(todos)
+
+        updateTodos(todos)
+    })
+
+</script>

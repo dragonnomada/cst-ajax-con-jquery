@@ -1,0 +1,74 @@
+<input type="text" placeholder="Escribe algo por hacer" value="123">
+<button>Agregar</button>
+
+<br>
+
+<ul>
+    <li>Ejemplo 1</li>
+    <li>Ejemplo 2</li>
+    <li>Ejemplo 3</li>
+</ul>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    // SELECTORES:
+    // Por etiqueta: <tagname> | $("tagname")
+    // Por id: <tagname id="xxxx"> | $("#xxxx")
+    // Por clase: <tagname class="foo bar"> | $(".foo") $(".bar") $(".foo.bar")
+    // Por atributo <tagname xx="yy"> | $("[xx='yy']") $("[xx]") $("[xx~='y']") ...
+    // Por descendencia directa: <x><y>...</y></x> | $("x>y") $(".foo>.bar")
+    // Por descendencia inderecta: <x><y>...<z>...</z>...</y></x> | $("x z") $(".foo .zip")
+
+    const tituloInput = $("input")
+    const agregarButton = $("button")
+    const todosUl = $("ul")
+
+    // EVENTOS DOM:
+    // click
+    // mouseover
+    // mouseenter
+    // mouseleave
+    // mousemove
+    // keydown
+    // keypress
+    // keyup
+    // resize
+    // load
+    // change
+
+    tituloInput.on("keypress", function (event) {
+        if (event.key === "Enter") {
+            // alert("Hola")
+            agregarTodo()
+        }
+    })
+
+    // agregarButton.click(function (event) { ... })
+    agregarButton.on("click", function (event) {
+        // alert("Hola")
+        agregarTodo()
+    })
+
+    function agregarTodo() {
+        // ATRIBUTO:
+        // Recuperar un atributo: <tagename xx="yy"> | $(el).attr("xx")
+        // Recuperar el texto: <tagname>...</tagname> | $(el).text()
+        // Recuperar el valor: <tagname value="..."> | $(el).val()
+        const titulo = tituloInput.val()
+
+        console.log("Se agregará el todo con el título", titulo)
+        
+        // CREAR NUEVAS ETIQUETAS
+        // $("<tagname>")
+        const todoLi = $("<li>")
+        todoLi.text(titulo)
+        todoLi.html("<strong>" + titulo + "</strong>")
+
+        console.log(todoLi)
+
+        todosUl.append(todoLi)
+    }
+
+</script>

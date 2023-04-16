@@ -1,0 +1,69 @@
+<style>
+    #loading {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4rem;
+    }
+    @keyframes rotar-logo {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+    }
+    #loading>span {
+        animation: rotar-logo 2s infinite;
+    }
+    .fruta-item {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+<div id="app"></div>
+
+<div id="loading"><span>✳️</span></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    $("#loading").hide()
+
+    $.ajax({
+        url: "generadores/frutas.json",
+        beforeSend() {
+            $("#loading").show()
+        },
+        complete() {
+            $("#loading").hide()
+        },
+        success(frutas) {
+            // frutas -> ARREGLO
+            console.log(frutas)
+
+            const ul = $("<ul>")
+            
+            frutas.forEach(function (fruta) {
+                const li = $(`
+                    <li class="fruta-item">
+                        <span>${fruta.nombre}</span>
+                        <span>$${fruta.precio}</span>
+                        <span>${fruta.peso} gramos</span>
+                        <span>${fruta.existencias} 
+                            (${fruta.hayExistencias ? 
+                                `CON EXISTENCIAS (${fruta.pocasExistencias ? "QUEDAN POCAS" : "HAY MUCHAS"})` :
+                                "SIN EXISTENCIAS"})</span>
+                    </li>
+                `)
+                ul.append(li)
+            })
+            $("#app").append(ul)
+        }
+    })
+
+</script>

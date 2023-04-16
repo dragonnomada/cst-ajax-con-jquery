@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="css/style.css">
+
+<div class="todo-input">
+
+    <input class="todo-input-control" type="text" placeholder="Ej. Comprar huevo">
+
+    <div class="todo-buttons-container">
+        <button class="todo-button" id="addTodo">Agregar</button>
+
+        <button class="todo-button" id="saveTodos">Guardar</button>
+
+        <button class="todo-button" id="loadTodos">Sincronizar</button>
+    </div>
+
+</div>
+
+<div class="todo-status">
+    <div class="todo-status-lengend">
+        <span id="saved-true" hidden>☁️ Saved</span>
+        <span id="saved-false" hidden>🌩️ Not saved</span>
+    </div>
+    
+    <div class="todo-status-lengend">
+        <span id="sync-true" hidden>🔒 Sync</span>
+        <span id="sync-false" hidden>✳️ Not sync</span>
+    </div>
+</div>
+
+<div id="todos">
+    <div class="todo-item">
+        <span class="checked">Todo de Ejemplo 1</span>
+        <span>2023-01-01T12:34:00.000z</span>
+    </div>
+    <div class="todo-item">
+        <span class="unchecked">Todo de Ejemplo 1</span>
+        <span>2023-01-01T12:34:00.000z</span>
+    </div>
+</div>
+
+<script src="vendor/jquery-3.6.4.min.js"></script>
+
+<script src="js/todoStore.js"></script>
+<script src="js/todoUI.js"></script>
+<script src="js/todoApp.js"></script>

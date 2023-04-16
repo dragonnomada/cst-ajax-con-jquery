@@ -1,0 +1,33 @@
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    function procesarTarea() {
+        return new Promise(callback => {
+
+            const start = new Date()
+            setTimeout(function () {
+                const resultado = new Date() - start
+                callback(resultado)
+            }, Math.floor(Math.random() * 5000))
+
+        })
+    }
+
+    procesarTarea()
+        .then(function (tiempo) {
+            // Nivel de anicación 1
+            console.log("La tarea ha finalizado en:", tiempo)
+            return procesarTarea()
+        })
+        .then(function (tiempo2) {
+            // Nivel de anicación 1
+            console.log("La tarea 2 ha finalizado en:", tiempo2)
+            return procesarTarea()
+        })
+        .then(function (tiempo3) {
+            // Nivel de anicación 1
+            console.log("La tarea 3 ha finalizado en:", tiempo3)
+        })
+
+</script>

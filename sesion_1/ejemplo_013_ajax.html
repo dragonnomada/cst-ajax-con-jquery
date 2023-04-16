@@ -1,0 +1,46 @@
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    // SINTAXIS:
+    // $.ajax(<options>)
+    // <options>:
+    // url: String - Establece la ruta al recurso a solicitar
+    // method: String("get", "post", "put", ...) - Método HTTP de la petición (por defecto GET)
+    // success: function (data, statusText, xhr)
+
+    $.ajax({
+        url: "datos/hello.txt",
+        success(data, statusText, xhr) {
+            console.log(data)
+            console.log(statusText)
+            console.log(xhr)
+        },
+        error(xhr, statusText) {
+            console.warn(xhr)
+            console.warn(statusText)
+        }
+    })
+
+    $.ajax({
+        url: "datos/hello2.txt",
+        beforeSend(xhr) {
+            console.log("ENVIANDO PETICIÓN POR hello2.txt")
+            // TODO: Bloquea la interfaz de usuario
+        },
+        success(data, statusText, xhr) {
+            console.log(data)
+            console.log(statusText)
+            console.log(xhr)
+        },
+        error(xhr, statusText) {
+            console.warn(xhr)
+            console.warn(statusText)
+        },
+        complete(xhr) {
+            console.log("PETICIÓN COMPLETADA DE hello2.txt")
+            // TODO: Desbloquea la interfaz de usuario
+        },
+    })
+
+</script>

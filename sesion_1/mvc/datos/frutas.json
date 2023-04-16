@@ -1,0 +1,16 @@
+{
+    "frutas": [
+        {
+            "nombre": "Manzana",
+            "precio": 45.98
+        },
+        {
+            "nombre": "Pera",
+            "precio": 54.15
+        },
+        {
+            "nombre": "Kiwi",
+            "precio": 96.17
+        }
+    ]
+}

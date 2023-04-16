@@ -1,0 +1,94 @@
+<div id="app"></div>
+
+<style>
+    .estatus-activo {
+        color: lime;
+    }
+    .estatus-inactivo {
+        color: crimson;
+    }
+</style>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    const usuarios = [
+        {
+            id: 123,
+            nombre: {
+                nombre: "Ana",
+                apellidoPaterno: "Pérez",
+                apellidoMaterno: "Juárez"
+            },
+            estatus: "Activo"
+        },
+        {
+            id: 456,
+            nombre: {
+                nombre: "Pedro",
+                apellidoPaterno: "Gómez",
+                apellidoMaterno: "Guillen"
+            },
+            estatus: "Vacaciones"
+        },
+        {
+            id: 789,
+            nombre: {
+                nombre: "Paco",
+                apellidoPaterno: "Martínez",
+                apellidoMaterno: "Lugo"
+            },
+            estatus: "Despido"
+        },
+    ]
+
+    const tabla = $("<table>")
+
+    tabla.html(`
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>APELLIDO PATERNO</th>
+                <th>APELLIDO MATERNO</th>
+                <th>ESTATUS</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    `)
+
+    // usuarios -> ARREGLO<OBJETO>
+    usuarios.forEach(function (usuario) {
+        // usuario -> OBJETO
+        const tr = $("<tr>")
+
+        tr.html(`
+            <td>${usuario.id}</td>
+            <td>${usuario.nombre.nombre}</td>
+            <td>${usuario.nombre.apellidoPaterno}</td>
+            <td>${usuario.nombre.apellidoMaterno}</td>
+            <td style="text-transform: uppercase;">${usuario.estatus}</td>
+        `)
+
+        tr.find("td").css("text-transform", "uppercase")
+        tr.find("td").eq(4).css("font-weight", "600")
+        let estatusClass = "estatus-desconocido"
+        switch (usuario.estatus.toLocaleUpperCase()) {
+            case "ACTIVO":
+                estatusClass = "estatus-activo"
+                break
+            case "VACACIONES":
+            case "DESPIDO":
+                estatusClass = "estatus-inactivo"
+                break
+        }
+        tr.find("td").eq(4).addClass(estatusClass)
+
+        tabla.find("tbody").append(tr)
+    })
+
+    $("#app").append(tabla)
+
+</script>

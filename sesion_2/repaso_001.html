@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repaso JQuery</title>
+</head>
+<body>
+    <!-- UI -->
+    <div id="app1">
+        <h1>Interfaz 1</h1>
+        <img src="https://placekitten.com/300" alt="">
+        <button>Ir a 2</button>
+    </div>
+    <div id="app2" hidden>
+        <h1>Interfaz 2</h1>
+        <button>Ir a 3</button>
+    </div>
+    <div id="app3" hidden>
+        <h1>Interfaz 3</h1>
+        <button>Ir a 2</button>
+        <button>Ir a 1</button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="jquery-3.6.4.min.js"></script>
+
+    <script>
+        $("#app1 button").click(function () {
+            $("#app1").fadeOut(200, function () {
+                $("#app2").fadeIn(200)
+            })
+        })
+
+        $("#app2 button").click(function () {
+            $("#app2").hide()
+            $("#app3").show()
+        })
+
+        // $("#app3 *:nth-child(2)")
+        // $("#app3 button:nth-of-type(1)")
+        $("#app3 button").eq(0).click(function () {
+            $("#app3").hide()
+            $("#app2").show()
+        })
+        
+        // $("#app3 *:nth-child(3)")
+        // $("#app3 button:nth-of-type(2)")
+        $("#app3 button").eq(1).click(function () {
+            $("#app3").hide()
+            $("#app1").show()
+        })
+    </script>
+</body>
+</html>

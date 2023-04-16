@@ -1,0 +1,38 @@
+<button>Mostrar imagen</button>
+
+<br>
+
+<img src="..." hidden>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    function randomPicture(callback) {
+        $.ajax({
+            url: "https://randomuser.me/api?results=1",
+            success(data) {
+                const picture = data.results[0].picture.large
+                callback(picture)
+            }
+        })
+    }
+
+    function mostrarImagen(url) {
+        $("img").attr("src", url).fadeIn(600)
+    }
+
+    function ocultarImagen(callback) {
+        $("img").fadeOut(600, callback)
+    }
+
+    $("button").click(function () {
+        // mostrarImagen("https://picsum.photos/200")
+        ocultarImagen(function () {
+            randomPicture(function (picture) {
+                mostrarImagen(picture)
+            })
+        })
+    })
+
+</script>

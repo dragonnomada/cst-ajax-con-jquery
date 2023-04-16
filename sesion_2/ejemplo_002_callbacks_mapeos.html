@@ -1,0 +1,36 @@
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    const calificaciones = [10, 8, 9.5, 7, 6.2, 5, 8.7, 10]
+
+    function calificacionANota(calificacion) {
+        if (calificacion >= 9) { return "MUY BIEN" }
+        else if (calificacion >= 7.5) { return "BIEN" }
+        else if (calificacion >= 6) { return "REGULAR" }
+        else return "REPROBADO"
+    }
+
+    // .map -> Función principal (Propagadora)
+    // calificacionANota -> Función secundaria (Controladora)
+    const notas = calificaciones.map(calificacionANota)
+
+    console.log(calificaciones)
+    console.log(notas)
+
+    function calificacionAAprobado(calificacion) {
+        return calificacion >= 6
+    }
+
+    const aprabados = calificaciones.map(calificacionAAprobado)
+
+    console.log(calificaciones)
+    console.log(aprabados)
+
+    const regulares = calificaciones.filter(function (calificacion) {
+        return calificacion >= 7 && calificacion < 9
+    })
+
+    console.log(regulares)
+
+</script>

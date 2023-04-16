@@ -1,0 +1,13 @@
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    async function app() {
+        const content = await $.ajax("demo.txt")
+
+        alert(content)
+    }
+
+    app()
+
+</script>

@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+<table id="my-table"></table>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script>
+
+    const table = new DataTable("#my-table", {
+
+        data: [
+            {
+                id: 1,
+                nombre: "Coca Cola",
+                precio: 17.5,
+                existencias: 100 
+            },
+            {
+                id: 2,
+                nombre: "Gansito",
+                precio: 20.5,
+                existencias: 20 
+            },
+        ],
+
+        columns: [
+            {
+                title: "ID",
+                data: "id"
+            },
+            {
+                title: "Nombre",
+                data: "nombre"
+            },
+            {
+                title: "Precio",
+                data(row) {
+                    return "$" + Number(row.precio).toFixed(2)
+                }
+            },
+            {
+                title: "Existencias",
+                data: "existencias",
+                render(value) {
+                    return $("<span>")
+                            .css("color", value <= 20 ? "red" : "lime")
+                            .text(value)
+                            .prop("outerHTML")
+                }
+            },
+            {
+                title: "Imagen",
+                //data() { return null },
+                render() {
+                    return $("<img>")
+                            .attr("src", "https://picsum.photos/200/80")
+                            .prop("outerHTML")
+                }
+            },
+        ]
+
+    })
+
+</script>

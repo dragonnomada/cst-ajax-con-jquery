@@ -1,0 +1,189 @@
+<link rel="stylesheet" href="jquery.dataTables.min.css">
+
+<div id="images"></div>
+
+<table id="my-table"></table>
+
+<script src="jquery-3.6.4.min.js"></script>
+<script src="jquery.dataTables.min.js"></script>
+<script src="dataTables.buttons.min.js"></script>
+<script src="jszip.min.js"></script>
+<script src="pdfmake.min.js"></script>
+<script src="vfs_fonts.js"></script>
+<script src="buttons.html5.min.js"></script>
+<script src="buttons.print.min.js"></script>
+<script src="html2canvas.min.js"></script>
+
+<script>
+
+    const table = new DataTable("#my-table", {
+        lengthMenu: [5, 10, 20, 50],
+        pageLength: 5,
+        dom: "Bfrtip",
+        buttons: [
+            "copy", "csv", "excel", "pdf", "print",
+            {
+                extend: "pdfHtml5",
+                text: "PDF con Imágenes",
+                customize(doc, options, context) {
+                    console.log({doc, options, context})
+
+                    const data = context.data()
+
+                    console.log({ data })
+
+                    const pictures = data.map(user => user.picture.thumbnailURI)
+
+                    console.log({ pictures })
+
+                    for (let i = 0; i < pictures.length; i++) {
+                        doc.content[1].table.body[i + 1][0] = {
+                            image: pictures[i],
+                            // width: 48
+                            width: 24
+                        }
+                    }
+                },
+                exportOptions: {
+                    columns: ":visible",
+                    stripHtml: true,
+                }
+            }
+        ],
+        // ajax: {
+        //     url: "https://randomuser.me/api?results=100",
+        //     dataSrc: "results"
+        // },
+        // data: [],
+        // processing: true,
+        // serverSide: true,
+        async ajax(data, callback, settings) {
+            console.log({ data, callback, settings })
+            const response = await $.ajax("https://randomuser.me/api?results=100")
+            for (let user of response.results) {
+                // const blob = await $.ajax(user.picture.thumbnail, {
+                //     crossDomain: true,
+                //     headers: {  
+                //         mode: "no-cors",
+                //         // "Access-Control-Allow-Origin:": "*"
+                //     },
+                //     xhrFields: {
+                //         responseType: "blob"
+                //     }
+                // })
+
+                const blob = await new Promise(resolve => {
+                    // var img = new Image();
+                    // img.onload = async function () {
+                    //     const canvas = await html2canvas(img, {
+                    //         useCORS: true,
+                    //         allowTaint: true,
+                    //         scale: 1,
+                    //         dpi: 500,
+                    //         width: 48,
+                    //         height: 48
+                    //     })
+                    //     console.log(canvas)
+                    //     canvas.toBlob(blob => {
+                    //         $(img).remove()
+                    //         resolve(blob)
+                    //     }, "image/jpeg", 0.75);
+                    //     // $(canvas).appendTo("#images")
+                    // }
+                    // // img.src = user.picture.thumbnail;
+                    // img.src = "78.jpg";
+                    // $(img).hide().appendTo("#images")
+
+                    var img = new Image();
+                    var c = document.createElement("canvas");
+                    var ctx = c.getContext("2d");
+
+                    img.onload = function () {
+                        console.log(this)
+                        c.width = this.naturalWidth;     // update canvas size to match image
+                        c.height = this.naturalHeight;
+                        ctx.drawImage(this, 0, 0);       // draw in image
+                        console.log(c)
+                        console.log(c.toDataURL("image/png"))
+                        // $(c).appendTo("#images")
+                        c.toBlob(function (blob) {        // get content as JPEG blob
+                            // here the image is a blob
+                            resolve(blob)
+                        }, "image/png", 0.75);
+                    };
+                    // img.crossOrigin = "*";              // if from different origin
+                    // img.crossOrigin = "anonymous";              // if from different origin
+                    // img.src = user.picture.thumbnail;
+                    img.src = "78.jpg";
+                })
+
+                const url = await new Promise(resolve => {
+                    const reader = new FileReader()
+                    reader.onloadend = function (event) {
+                        resolve(reader.result)
+                    }
+                    reader.readAsDataURL(blob)
+                })
+
+                console.log(url)
+
+                // user.picture.thumbnailURI = URL.createObjectURL(blob)
+                user.picture.thumbnailURI = url
+            }
+            callback({
+                data: response.results
+            })
+            // callback([])
+            // callback([{ 
+            //     name: { 
+            //     first: "demo", last: "1" }, 
+            //     picture: { thumbnailURI: "123" },
+            //     location: {
+            //         coordinates: {
+            //             latitude: 123,
+            //             longitude: 456
+            //         }
+            //     }
+            // }])
+        },
+        columns: [
+            {
+                title: "Picture",
+                // data: "picture.thumbnail",
+                data: "picture.thumbnailURI",
+                render(data) {
+                    return `<img class="picture" src="${data}">`
+                }
+            },
+            {
+                title: "First name",
+                data: "name.first"
+            },
+            {
+                title: "Last name",
+                data: "name.last"
+            },
+            {
+                title: "Location",
+                data(row, type, val, meta) {
+                    console.log("data:", { row, type, val, meta })
+                    return row.location.coordinates
+                },
+                render(data, type, row, meta) {
+                    console.log("render:", { data, type, row, meta })
+                    // const url = `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120687.0039113056!2d${data.longitude}!3d${data.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1681326960545!5m2!1ses-419!2smx`
+                    // return `
+                    // <iframe width="200" height="80" 
+                    //     style="border:0;" allowfullscreen="" loading="lazy"
+                    //     src="${url}" 
+                    //     referrerpolicy="no-referrer-when-downgrade">
+                    // </iframe>
+                    // `
+                    const url = `https://www.google.com/maps/@${data.longitude},${data.latitude},15z`
+                    return `<a href="${url}" target="_blank">${data.longitude}, ${data.latitude}</a>`
+                }
+            }
+        ]
+    })
+
+</script>

@@ -1,0 +1,20 @@
+<style>
+    .producto-item {
+        display: flex;
+        align-items: center;
+    }
+
+    span[data-rel="producto-nombre"] {
+        flex-grow: 1;
+    }
+    
+    span[data-rel="producto-precio"] {
+        width: 100px;
+    }
+</style>
+
+<div class="producto-item">
+    <span data-rel="producto-nombre">[NOMBRE]</span>
+    <span data-rel="producto-precio">[PRECIO $]</span>
+    <button data-rel="producto-seleccionar">Seleccionar ➕</button>
+</div>

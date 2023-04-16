@@ -1,0 +1,89 @@
+<style>
+    html, body {
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .logo-1 {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border: 2px dashed hotpink;
+        border-radius: 30px;
+    }
+
+    .logo-2 {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border: 2px dotted cornflowerblue;
+        border-radius: 50%;
+        box-shadow: 0px 0px 16px 8px rgba(40, 40, 193, 0.1);
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        padding: 32px;
+    }
+
+    .control-container {
+        display: flex;
+        flex-direction: column;
+        padding: 2em;
+    }
+
+    .my-form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    
+    .my-form {
+        width: 300px;
+        box-shadow: 0px 0px 8px 4px rgba(40, 40, 193, 0.1);
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .button-container > button {
+        width: 100%;
+    }
+</style>
+
+<div class="my-form-container">
+    <div class="my-form">
+
+        <div class="logo-container">
+    
+            <img class="logo-2" src="https://th.bing.com/th/id/OIP.9xUzmdftak6cZJ8wXI1Z8AHaHa?pid=ImgDet&rs=1">
+    
+        </div>
+    
+        <div class="control-container">
+    
+            <label>Usuario</label>
+            <input class="input-control" type="text" placeholder="Ej. ana44">
+    
+        </div>
+    
+        <div class="control-container">
+    
+            <label>Constraseña</label>
+            <input class="input-control" type="password" placeholder="Ej. ****">
+    
+        </div>
+    
+        <div class="button-container">
+    
+            <button>Iniciar sesión 🔒</button>
+    
+        </div>
+    
+    </div>
+</div>

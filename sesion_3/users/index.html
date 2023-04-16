@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+<table id="my-table"></table>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+<script>
+
+    const table = new DataTable("#my-table", {
+
+        dom: 'Bfrtip',
+        
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+
+        ajax: {
+            url: "https://randomuser.me/api?results=1000",
+            beforeSend() {
+                console.log("Antes de obtener usuarios")
+            },
+            complete() {
+                console.log("Después de obtener usuarios")
+            },
+            dataSrc: "results"
+        },
+
+        columns: [
+            {
+                title: "ID",
+                data: "id.value"
+            },
+            {
+                title: "Nombre Completo",
+                data(row) {
+                    return row.name.first + " " + row.name.last
+                }
+            },
+            {
+                title: "Gender",
+                data: "gender"
+            },
+            {
+                title: "Email",
+                data: "email"
+            },
+            {
+                title: "Imagen",
+                data: "picture",
+                render(value) {
+                    return $("<img>")
+                            .attr("src", value.thumbnail)
+                            .prop("outerHTML")
+                }
+            },
+        ]
+
+    })
+
+</script>

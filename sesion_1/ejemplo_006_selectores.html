@@ -1,0 +1,41 @@
+<!-- body>div -->
+<div>
+    <!-- body>div>div:nth-child(1) -->
+    <div>
+        <div>
+            <h1>Título</h1>
+            <h2>Subtítulo</h2>
+        </div>
+        <div>
+            <p>Nombre del autor</p>
+        </div>
+    </div>
+    <!-- body>div>div:nth-child(2) -->
+    <div>
+        <p>Párrafo 1</p>
+        <p>Párrafo 2</p>
+        <p>Párrafo 3</p>
+        <p>Párrafo 4</p>
+    </div>
+    <div class="foo">
+        <input type="checkbox">
+        <label>Habilitar opción</label>
+    </div>
+    <!-- body>div>div:nth-child(3) -->
+    <div>
+        <p><span><small>Derecho reservador &copy; 2023</small></span></p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    // $(document).ready(<callback>)
+    $(document).ready(function () {
+        $(".foo input[type='checkbox']").on("change", function (event) {
+            // this -> $(".foo input[type='checkbox']")
+            console.log(event, this)
+            $("div h1").css("color", this.checked ? "red" : "blue")
+        })
+    })
+</script>

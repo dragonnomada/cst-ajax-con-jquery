@@ -1,0 +1,59 @@
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Peso</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Ana</td>
+            <td>23</td>
+            <td>56.2</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Carlos</td>
+            <td>32</td>
+            <td>85.4</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Daniela</td>
+            <td>28</td>
+            <td>45.7</td>
+        </tr>
+    </tbody>
+    <!-- <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Peso</th>
+        </tr>
+    </tfoot> -->
+</table>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    console.log($("tbody>tr"))
+
+    $("tbody>tr").each(function (index, element) {
+        console.log(index, element)
+        console.log($(element).find("td"))
+        console.log($(element).find("td").eq(1))
+        const id = Number($(element).find("td").eq(0).text())
+        const nombre = $(element).find("td").eq(1).text()
+        const edad = Number($(element).find("td").eq(2).text())
+        const peso = Number($(element).find("td").eq(3).text())
+        console.log({ id, nombre, edad, peso })
+
+        $(element).find("td").eq(3).text(peso + 10)
+    })
+
+</script>

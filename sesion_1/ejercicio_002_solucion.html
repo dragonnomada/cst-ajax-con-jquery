@@ -1,0 +1,40 @@
+<!-- <style>
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+    }
+</style> -->
+
+<input type="text" placeholder="Coloca la url de una imagen">
+
+<div></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    $("input").on("keypress", function (event) {
+        if (event.key === "Enter") {
+
+            const url = $("input").val()
+
+            // Crear la imagen
+            const img = $("<img>")
+            // Ajustar el src
+            // img.attr
+            $(img).attr("src", url)
+            // Agregar reglas CSS (atributos style)
+            $(img).css("width", "80px")
+            $(img).css("height", "80px")
+
+            // Agregar la imagen al div
+            $("div").append(img)
+
+        }
+    })
+
+</script>

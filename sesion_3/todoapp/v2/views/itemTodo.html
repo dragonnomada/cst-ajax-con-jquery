@@ -1,0 +1,34 @@
+<style>
+    .todo-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .todo-item.completado span[data-rel='id'] {
+        text-decoration: line-through;
+    }
+
+    .todo-legend {
+        font-weight: 600;
+    }
+
+    .todo-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    span[data-rel='creado'], span[data-rel='actualizado'] {
+        font-size: 0.7em;
+    }
+</style>
+
+<div class="todo-item">
+    <div class="todo-legend">
+        <span data-rel="id">[ID]</span>
+        <span data-rel="titulo">[TITULO]</span>
+    </div>
+    <div class="todo-details">
+        <span data-rel="creado">[FECHA CREADO]</span>
+        <span data-rel="actualizado">[FECHA ACTUALIZADO]</span>
+    </div>
+</div>

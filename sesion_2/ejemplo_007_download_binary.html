@@ -1,0 +1,41 @@
+<button>Descargar PDF</button>
+
+<div id="app"></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    async function download(url) {
+        console.log({ url })
+        const data = await $.ajax(url, {
+            xhrFields: {
+                responseType: "blob"
+            }
+        })
+        console.log({ data })
+        // const blob = new Blob([data], { type: "video/mp4" }) // FORMA 1 -> Blob de bytes
+        // console.log({ blob })
+        const source = URL.createObjectURL(data) // FORMA 2 -> URL interna
+        console.log({ source })
+        return source
+    }
+
+    $("button").click(async function () {
+        const content = await download("http://localhost:8080/file_004.mp4")
+        console.log(content)
+        // <embed src="..." width="500" height="375" type="video/mp4">
+        $("<embed>")
+            .attr("src", content)
+            .attr("width", 200)
+            .attr("height", 200)
+            // .attr("type", "video/mp4")
+            .appendTo("#app")
+        $("<a>")
+            .attr("href", content)
+            .attr("download", `video.mp4`)
+            .text("Descargar")
+            .appendTo("#app")
+    })
+
+</script>

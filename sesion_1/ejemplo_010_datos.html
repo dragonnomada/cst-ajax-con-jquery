@@ -1,0 +1,119 @@
+<script src="jquery-3.6.4.min.js"></script>
+<script>
+    // Tipos de datos
+    // Números (enteros, decimales) -> Number
+    // Textos (comilla simple, comilla doble, comilla especial) -> String
+    // Lógicos (vardadero, falso) -> Boolean (true, false)
+    // Nulos (indefinido, vacío) -> (undefined, null)
+    // Objetos { <key>: <val>, ... }
+    // Arreglos [<val>, ...]
+
+    // OBJETOS
+    const persona = {
+        id: 1,
+        nombre: "Ana",
+        edad: 23,
+        peso: 56.2
+    }
+
+    persona.salario = 13_500
+    persona["peso"] = 46.2
+
+    console.log(persona.id) // 1
+    console.log(persona["nombre"]) // "Ana"
+
+    console.log(persona) // [Object]
+
+    // ARREGLOS
+    const frutas = ["Manzana", "Pera", "Mango", "Piña", "🍎"]
+
+    const calificaciones = [9, 8, 7, 6.5, 5, 10, 8]
+
+    calificaciones.push(7.5)
+
+    console.log(calificaciones[0]) // 9
+    console.log(calificaciones[4]) // 5
+    console.log(calificaciones[calificaciones.length - 1]) // 7.5
+
+    // Arreglos de objetos
+    const personas = [
+        {
+            nombre: "Ana",
+            edad: 23
+        },
+        {
+            nombre: "Pepe",
+            edad: 18
+        },
+        {
+            nombre: "Daniel",
+            edad: 78
+        }
+    ]
+
+    // Objeto con arreglos
+    const conversacion = {
+        de: "Ana",
+        para: "Pepe",
+        mensaje: "Hola Ana, ¿Cómo estás?",
+        telefonosAsociados: [
+            "5512345678",
+            "5587654321",
+            "5512365487",
+        ],
+        ubicaciones: [
+            {
+                latitud: 123.456,
+                longitud: -89.34
+            },
+            {
+                latitud: 567.456,
+                longitud: -87.34
+            }
+        ]
+    } 
+
+    // EJEMPLOS:
+    
+    // API DE PAGOS
+    const result_pago = {
+        numOperacion: 12345,
+        cuenta: "56422111AB",
+        monto: 123.45,
+        productos: [
+            {
+                sku: "018902",
+                descripcion: "Zapatos rojos",
+                precio: 100.0
+            },
+            {
+                sku: "08923",
+                descripcion: "Lápiz",
+                precio: 23.45
+            },
+        ]
+    }
+
+    // API DE USUARIOS
+    const result_usuarios = {
+        results: [
+            {
+                username: "ana44",
+                picture: "https://miempresa/clientes/1234"
+            },
+            {
+                username: "pee54",
+                picture: "https://miempresa/clientes/1244"
+            },
+            {
+                username: "beto16",
+                picture: "https://miempresa/clientes/3232"
+            }
+        ],
+        info: {
+            page: 1,
+            pageSize: 20,
+            results: 3
+        }
+    }
+</script>

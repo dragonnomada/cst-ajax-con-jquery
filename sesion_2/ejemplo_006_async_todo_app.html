@@ -1,0 +1,152 @@
+<style>
+    .todo-item {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 2px solid crimson;
+    }
+    span.checked {
+        text-decoration: line-through;
+    }
+    .todo-item > span:nth-last-of-type(1) {
+        font-size: 0.7em;
+        color: darkblue;
+    }
+</style>
+
+<div>
+
+    <input type="text" placeholder="Ej. Comprar huevo">
+
+    <button id="addTodo">Agregar</button>
+
+    <button id="saveTodos">Guardar</button>
+
+    <button id="loadTodos">Sincronizar</button>
+
+</div>
+
+<div style="display: flex;">
+    <div>
+        <span id="saved-true" hidden>☁️ Saved</span>
+        <span id="saved-false" hidden>🌩️ Not saved</span>
+    </div>
+    
+    <div>
+        <span id="sync-true" hidden>🔒 Sync</span>
+        <span id="sync-false" hidden>✳️ Not sync</span>
+    </div>
+</div>
+
+<div id="todos"></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    // Todo { title, checked, createdAt }
+
+    // MODELO LÓGICO (ESTADO/STATE)
+    let todos = []
+    let saved = false
+    let sync = false
+
+    // OPERACIONES (TRANSACCIONES/MUTATIONS)
+    async function addTodo(title) {
+        const todo = {
+            id: Math.floor(Math.random() * 10_000),
+            title,
+            checked: false,
+            createdAt: new Date().toISOString()
+        }
+
+        todos.push(todo)
+
+        // TODO: Sincronizar el nuevo Todo hacía el servidor
+
+        sync = false
+    }
+
+    async function saveTodos() {
+        const todos_json = JSON.stringify(todos) // -> Texto en formato JSON
+        localStorage.setItem("todos", todos_json)
+
+        // TODO: Avisar al servidor guardar los Todos
+
+        saved = true
+    }
+
+    async function loadTodos() {
+        const todos_loaded = JSON.parse(localStorage.getItem("todos") || "[]")
+
+        console.log("Todos cargados:", todos_loaded)
+        todos.push(...todos_loaded)
+
+        // TODO: Mezclar Todos con los del servidor
+
+        todos = todos.reduce((uniqueTodos, todo) => {
+            if (!uniqueTodos.find(otherTodo => otherTodo.id === todo.id)) {
+                uniqueTodos.push(todo)
+            }
+            return uniqueTodos
+        }, [])
+
+        console.log(todos)
+
+        sync = true
+    }
+
+    function refreshTodosUI() {
+        $("#todos").html("")
+
+        todos.forEach(todo => {
+
+            $("<div class='todo-item'>").html(`
+                <span class="${todo.checked ? 'checked' : 'unchecked'}">${todo.title}</span>
+                <span>${todo.createdAt}</span>
+            `).appendTo("#todos")
+
+        })
+        $("#saved-true").hide()
+        $("#saved-false").hide()
+        $("#sync-true").hide()
+        $("#sync-false").hide()
+
+        if (saved) {
+            $("#saved-true").show()
+        } else {
+            $("#saved-false").show()
+        }
+
+        if (sync) {
+            $("#sync-true").show()
+        } else {
+            $("#sync-false").show()
+        }
+    }
+
+    $(document).ready(async function () {
+        await loadTodos()
+        refreshTodosUI()
+    })
+
+    $("button#addTodo").click(async function () {
+        const title = $("input").val()
+        await addTodo(title)
+        refreshTodosUI()
+    })
+
+    $("button#saveTodos").click(async function () {
+        await saveTodos()
+        refreshTodosUI()
+    })
+
+    $("button#loadTodos").click(async function () {
+        await loadTodos()
+        refreshTodosUI()
+    })
+
+    // setInterval(async function() {
+    //     await saveTodos()
+    //     refreshTodosUI()
+    // }, 30000)
+</script>

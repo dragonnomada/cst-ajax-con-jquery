@@ -1,0 +1,47 @@
+.todo-status {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 48px;
+    padding-bottom: 12px;
+}
+
+.todo-input {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-buttons-container {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.todo-button {
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 8px;
+    font-size: 1.2em;
+}
+
+#todos {
+    padding: 12px;
+}
+
+.todo-item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid gainsboro;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+span.checked {
+    text-decoration: line-through;
+}
+.todo-item > span:nth-last-of-type(1) {
+    font-size: 0.7em;
+    color: darkblue;
+}

@@ -1,0 +1,73 @@
+<style>
+    .galeria {
+        display: flex;
+    }
+
+    .galeria>img {
+        height: 200px;
+    }
+</style>
+
+<div class="galeria-fuente">
+    <meta data-src="https://placekitten.com/200">
+    <meta data-src="https://placekitten.com/300">
+    <meta data-src="https://placekitten.com/400">
+    <meta data-src="https://placekitten.com/500">
+    <meta data-src="https://placekitten.com/600">
+    <meta data-src="https://placekitten.com/700">
+</div>
+
+<div class="galeria">
+    <button>Anterior</button>
+    <img src="https://placekitten.com/200">
+    <button>Siguiente</button>
+</div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        let pictureCount = 1
+
+        // let, const, var
+        const buttonAnterior = $(".galeria button:nth-of-type(1)")
+        const buttonSiguiente = $(".galeria button:nth-of-type(2)")
+
+        console.log(buttonAnterior)
+        console.log(buttonSiguiente)
+
+        buttonAnterior.attr("disabled", true)
+
+        buttonSiguiente.click(function () {
+            buttonAnterior.attr("disabled", false)
+            pictureCount += 1
+            const images = $(".galeria-fuente meta").length
+            if (pictureCount >= images) {
+                buttonSiguiente.attr("disabled", true)
+            }
+            console.log($(`meta:nth-child(${pictureCount})`))
+            const src = $(`meta:nth-child(${pictureCount})`).data("src")
+            console.log(src)
+
+            $(".galeria > img").attr("src", src)
+        })
+
+        buttonAnterior.click(function () {
+            buttonSiguiente.attr("disabled", false)
+            pictureCount -= 1
+            const images = $(".galeria-fuente meta").length
+            if (pictureCount <= 1) {
+                buttonAnterior.attr("disabled", true)
+            }
+            console.log($(`meta:nth-child(${pictureCount})`))
+            const src = $(`meta:nth-child(${pictureCount})`).data("src")
+            console.log(src)
+
+            $(".galeria > img").attr("src", src)
+        })
+
+    })
+
+</script>

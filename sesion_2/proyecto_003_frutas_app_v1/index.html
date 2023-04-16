@@ -1,0 +1,38 @@
+<div class="frutas-form">
+    <div class="frutas-field">
+        <label>Nombre de la fruta:</label>
+        <input id="fruta-name" type="text" placeholder="Ej. Manzana">
+    </div>
+    <div class="frutas-field">
+        <label>Precio de la fruta ($ MXN):</label>
+        <input id="fruta-price" type="text" placeholder="Ej. 17.98">
+    </div>
+    <div class="frutas-field">
+        <label>Existencias de la fruta (kg):</label>
+        <input id="fruta-quantity" type="text" placeholder="Ej. 12.1">
+    </div>
+
+    <button id="fruta-add">Agregar Fruta</button>
+</div>
+
+<div class="frutas-table-container">
+    <table id="frutas-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio ($ MXN)</th>
+                <th>Cantidad (Kg)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div class="frutas-table-actions">
+    <button id="fruta-export-csv">Exportar a CSV</button>
+</div>
+
+<script src="vendor/jquery-3.6.4.min.js"></script>
+<script src="js/frutaStore.js"></script>
+<script src="js/frutaUI.js"></script>
+<script src="js/frutaApp.js"></script>

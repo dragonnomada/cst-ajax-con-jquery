@@ -1,0 +1,94 @@
+<div id="app"></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+<script>
+    const conversacion = {
+        de: "Ana",
+        para: "Pepe",
+        mensaje: "Hola Ana, ¿Cómo estás?",
+        telefonosAsociados: [
+            "5512345678",
+            "5587654321",
+            "5512365487",
+        ],
+        ubicaciones: [
+            {
+                latitud: -98.2755375,
+                longitud: 19.043112
+            },
+            {
+                latitud: -100.2755375,
+                longitud: 19.043112
+            },
+        ]
+    }
+
+    const divSuperior = $("<div>")
+    const divCabecera = $("<div>")
+
+    divCabecera.html(`
+        <span>DE: ${conversacion.de}</span>
+        <span>PARA: ${conversacion.para}</span>
+    `)
+
+    const pMensaje = $("<p>")
+
+    pMensaje.text(conversacion.mensaje)
+
+    const divTelefonos = $("<div>")
+
+    conversacion.telefonosAsociados.forEach(function (telefono) {
+        const span = $("<span>")
+        span.text(telefono)
+        divTelefonos.append(span)
+    })
+
+    const divMapas = $("<div>")
+
+    conversacion.ubicaciones.forEach(function (ubicacion) {
+        const iframe = $('<iframe width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">')
+        iframe.attr("src", `https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120687.0039113056!2d${ubicacion.latitud}!3d${ubicacion.longitud}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1681326960545!5m2!1ses-419!2smx`)
+        divMapas.append(iframe)
+    })
+
+    divSuperior.append(divCabecera)
+    divSuperior.append($("<hr>"))
+    divSuperior.append(pMensaje)
+    divSuperior.append($("<hr>"))
+    divSuperior.append(divTelefonos)
+    divSuperior.append(divMapas)
+
+    $("#app").append(divSuperior)
+</script>
+
+<!-- 
+<div>
+    <div style="display: flex; justify-content: space-between;">
+        <span>DE: Ana</span>
+        <span>PARA: Pepe</span>
+    </div>
+    <hr>
+    <p>Hola Ana, ¿Cómo estás?</p>
+    <hr>
+    <div style="display: flex; flex-wrap: wrap;">
+        <span style="background-color: hotpink; padding: 4px; border-radius: 12px;">5512345678</span>
+        <span style="background-color: cornflowerblue; padding: 4px; border-radius: 12px;">5587654321</span>
+        <span style="background-color: gainsboro; padding: 4px; border-radius: 12px;">5512365487</span>
+    </div>
+    <hr>
+    <div style="display: flex; flex-wrap: wrap-reverse;">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120687.0039113056!2d-100.27553750068702!3d20.043111957713915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1681326960545!5m2!1ses-419!2smx"
+            width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120687.0039113056!2d-98.27553750068702!3d20.043111957713915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1681326960545!5m2!1ses-419!2smx"
+            width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d120687.0039113056!2d-98.27553750068702!3d30.043111957713915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1681326960545!5m2!1ses-419!2smx"
+            width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</div> 
+-->

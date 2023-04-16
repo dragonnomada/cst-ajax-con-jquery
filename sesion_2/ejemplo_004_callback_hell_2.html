@@ -1,0 +1,55 @@
+<button>Mostrar imagen</button>
+
+<br>
+
+<div id="galeria"></div>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    function randomPicture(callback) {
+        $.ajax({
+            url: "https://randomuser.me/api?results=1",
+            success(data) {
+                const picture = data.results[0].picture.large
+                callback(picture)
+            }
+        })
+    }
+
+    $("button").click(function () {
+        // randomPicture(function (pic1) {
+        //     randomPicture(function (pic2) {
+        //         randomPicture(function (pic3) {
+        //             // ...
+        //         })
+        //     })
+        // })
+
+        const pictures = []
+
+        // DOMINIO DE LA RECURSIVIDAD
+        function next(count, callback) {
+            // Condición de paro
+            if (count <= 0) {
+                callback(pictures)
+                return
+            }
+            // Dominio
+            randomPicture(function (picture) {
+                pictures.push(picture)
+                // Recursividad
+                next(count - 1, callback)
+            })
+        }
+
+        next(20, function (pictures) {
+            console.log(pictures)
+            pictures.forEach(function (picture) {
+                $("<img>").attr("src", picture).appendTo("#galeria")
+            })
+        })
+    })
+
+</script>

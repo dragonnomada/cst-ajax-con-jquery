@@ -1,0 +1,99 @@
+<div style="display: flex; flex-direction: column;">
+    <label>Ingresa la URL del PDF</label>
+    <input id="pdf-url" type="text" 
+        placeholder="Ej. http://miempresa.com/static/reporte.pdf"
+        value="http://localhost:8080/file_001.pdf">
+    <label>Nombre único del archivo</label>
+    <input id="pdf-name" type="text" 
+        placeholder="Ej. reporte_001.pdf"
+        value="file_001.pdf">
+    <button id="pdf-download">Descargar Archivo 💾</button>
+</div>
+
+<hr>
+
+<ul id="files"></ul>
+
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+    let files = []
+
+    async function updateFiles() {
+        $("ul").html("")
+
+        files = JSON.parse(localStorage.getItem("files") || "[]")
+
+        for (let file of files) {
+            const content = localStorage.getItem(file)
+            const blob = await $.ajax(content, {
+                xhrFields: {
+                    responseType: "blob"
+                }
+            })
+            // const [header, data] = content.split(",")
+            // const mimeType = header.split(";")[0].split(":")[1]
+            // const blob = new Blob([atob(data)], { type: mimeType })
+            const url = URL.createObjectURL(blob)
+            console.log({ content, blob, url })
+            $("<li>")
+                .html(`<a href="${url}" target="_blank">${file}</a>`)
+                .appendTo("#files")
+        }
+    }
+
+    $(document).ready(async () => {
+
+        await updateFiles()
+
+    })
+
+    $("#pdf-download").click(async function () {
+
+        const url = $("#pdf-url").val()
+
+        console.log("Descargando la URL:", url)
+
+        const name = $("#pdf-name").val()
+
+        console.log("El archivo será llamado:", name)
+
+        console.log("Obteniendo blob...")
+
+        const blob = await $.ajax(url, {
+            xhrFields: {
+                responseType: "blob"
+            }
+        })
+
+        console.log("Blob obtenido", { blob })
+
+        // if (blob.type !== "application/pdf") {
+        //     alert("El archivo no es PDF")
+        //     return
+        // }
+
+        console.log("Convirtiendo blob a base64...")
+
+        const content = await new Promise(resolve => {
+            const reader = new FileReader()
+            reader.onloadend = function (event) {
+                resolve(reader.result)
+            }
+            reader.readAsDataURL(blob)
+        })
+        
+        console.log("Conversión completa:", { content })
+
+        console.log("Guardado blob...")
+
+        files.push(name)
+        localStorage.setItem("files", JSON.stringify(files))
+        localStorage.setItem(name, content)
+
+        console.log("Archivo guardado exitósamente")
+
+        await updateFiles()
+
+    })
+</script>

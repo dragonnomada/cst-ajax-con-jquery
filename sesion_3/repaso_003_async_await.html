@@ -1,0 +1,49 @@
+<script src="jquery-3.6.4.min.js"></script>
+
+<script>
+
+    function procesarTarea() {
+        return new Promise(callback => {
+
+            const start = new Date()
+            setTimeout(function () {
+                const resultado = new Date() - start
+                callback(resultado)
+            }, Math.floor(Math.random() * 5000))
+
+        })
+    }
+
+    // Las funciones asíncronas siempre regresan una promesa
+    async function app() {
+        
+        const tiempo1 = await procesarTarea()
+
+        console.log("La tarea 1 ha finalizado en:", tiempo1)
+        
+        const tiempo2 = await procesarTarea()
+
+        console.log("La tarea 2 ha finalizado en:", tiempo2)
+        
+        const tiempo3 = await procesarTarea()
+
+        console.log("La tarea 3 ha finalizado en:", tiempo3)
+
+    }
+
+    // descargarImagen(function (imagen) {
+    //     convertirImagenABlob(imagen, function (blob) {
+    //         subirBlob(blob, function (status) {
+    //             console.log("Se ha subido la imagen al servidor con estatus:", status)
+    //         })
+    //     })
+    // })
+
+    // async function app() {
+    //     const imagen = await descargarImagenAsync()
+    //     const blob = await convertirImagenABlob(imagen)
+    //     const status = await subirBlob(blob)
+    //     console.log("Se ha subido la imagen al servidor con estatus:", status)
+    // }
+
+</script>
